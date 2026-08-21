@@ -13,5 +13,4 @@ runner:
   fetch_interval: 2s
   warmup_time: 60s
   labels:
-    - shell
-    - ubuntu-latest
+    - self-hosted:host
