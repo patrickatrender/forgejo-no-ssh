@@ -1,2 +1,3 @@
 FROM data.forgejo.org/forgejo/runner:13
 RUN /bin/forgejo-runner generate-config > /data/runner-config.yml
+RUN echo -n "28ee07328a8dda0ae05bda5bc5021363088943d7" > /data/runner-token
