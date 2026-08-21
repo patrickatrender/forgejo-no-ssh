@@ -1,7 +1,6 @@
 FROM data.forgejo.org/forgejo/runner:13
 
-# Copy entrypoint script
+# Copy entrypoint script with execute permissions
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
