@@ -1,0 +1,2 @@
+FROM data.forgejo.org/forgejo/runner:13
+RUN /bin/forgejo-runner generate-config > /data/runner-config.yml
