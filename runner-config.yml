@@ -1,0 +1,17 @@
+server:
+  connections:
+    forgejo:
+      url: ${FORGEJO_URL}
+      uuid: ${FORGEJO_UUID}
+      token: ${FORGEJO_TOKEN}
+
+runner:
+  capacity: 1
+  timeout: 3h
+  insecure: false
+  fetch_timeout: 5m
+  fetch_interval: 2s
+  warmup_time: 60s
+  labels:
+    - shell
+    - ubuntu-latest

@@ -1,4 +1,5 @@
 FROM data.forgejo.org/forgejo/runner:13
 
+COPY runner-config.yml /data/runner-config.yml
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]

@@ -1,21 +1,10 @@
 #!/bin/sh
 set -e
 
-FORGEJO_URL="${FORGEJO_URL:-http://localhost:3000}"
-FORGEJO_UUID="${FORGEJO_UUID:-}"
-FORGEJO_TOKEN="${FORGEJO_TOKEN:-}"
+# Replace env vars in config
+sed -i "s|\${FORGEJO_URL}|${FORGEJO_URL}|g" /data/runner-config.yml
+sed -i "s|\${FORGEJO_UUID}|${FORGEJO_UUID}|g" /data/runner-config.yml
+sed -i "s|\${FORGEJO_TOKEN}|${FORGEJO_TOKEN}|g" /data/runner-config.yml
 
-if [ -z "$FORGEJO_UUID" ] || [ -z "$FORGEJO_TOKEN" ]; then
-    echo "Error: FORGEJO_UUID and FORGEJO_TOKEN required"
-    exit 1
-fi
-
-echo -n "$FORGEJO_TOKEN" > /tmp/runner-token
-
-# Shell executor with no Docker
-exec forgejo-runner daemon \
-    --url "$FORGEJO_URL" \
-    --uuid "$FORGEJO_UUID" \
-    --token-url file:///tmp/runner-token \
-    --label shell \
-    --label ubuntu-latest
+# Run with config file
+exec forgejo-runner daemon --config /data/runner-config.yml
