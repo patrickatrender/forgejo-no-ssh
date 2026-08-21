@@ -1,5 +1,7 @@
 FROM data.forgejo.org/forgejo/runner:13
 
+USER root
+
 # Create the runner user
 RUN addgroup -g 1000 runner && \
     adduser -D -u 1000 -G runner runner && \
