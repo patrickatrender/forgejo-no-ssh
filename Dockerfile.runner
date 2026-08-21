@@ -1,6 +1,7 @@
 FROM data.forgejo.org/forgejo/runner:13
 
-# Copy entrypoint script with execute permissions
-COPY entrypoint.sh /entrypoint.sh
+# Install Docker
+RUN apk add --no-cache docker docker-cli
 
+COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
