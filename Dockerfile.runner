@@ -1,8 +1,4 @@
 FROM data.forgejo.org/forgejo/runner:13
 
-# Install Docker
-USER root
-RUN apk add --no-cache docker docker-cli
-# USER 1000:1000
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
