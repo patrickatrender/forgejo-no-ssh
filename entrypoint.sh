@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+# Use environment variables or defaults
+FORGEJO_URL="${FORGEJO_URL:-http://localhost:3000}"
+FORGEJO_UUID="${FORGEJO_UUID:-}"
+FORGEJO_TOKEN="${FORGEJO_TOKEN:-}"
+FORGEJO_LABELS="${FORGEJO_LABELS:-docker:docker://node:lts}"
+
+if [ -z "$FORGEJO_UUID" ] || [ -z "$FORGEJO_TOKEN" ]; then
+    echo "Error: FORGEJO_UUID and FORGEJO_TOKEN environment variables required"
+    exit 1
+fi
+
+# Write token to file
+echo -n "$FORGEJO_TOKEN" > /tmp/runner-token
+
+# Run the daemon
+exec forgejo-runner daemon \
+    --url "$FORGEJO_URL" \
+    --uuid "$FORGEJO_UUID" \
+    --token-url file:///tmp/runner-token \
+    --label "$FORGEJO_LABELS"
