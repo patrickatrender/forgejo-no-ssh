@@ -1,5 +1,15 @@
 FROM data.forgejo.org/forgejo/runner:13
 
+# Create the runner user
+RUN addgroup -g 1000 runner && \
+    adduser -D -u 1000 -G runner runner && \
+    mkdir -p /data && \
+    chown -R runner:runner /data
+
 COPY runner-config.yml /data/runner-config.yml
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh && \
+    chown runner:runner /entrypoint.sh
+
+USER runner
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
